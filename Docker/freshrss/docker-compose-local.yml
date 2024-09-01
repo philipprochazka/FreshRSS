@@ -1,7 +1,0 @@
-version: "2.4"
-
-services:
-
-  freshrss:
-    ports:
-      - "${PUBLISHED_PORT:-8080}:${LISTEN:-80}"
