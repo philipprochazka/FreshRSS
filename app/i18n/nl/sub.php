@@ -29,7 +29,9 @@ return array(
 			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informatie',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
@@ -66,9 +68,14 @@ return array(
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
+		'export-as-opml' => array(
+			'download' => 'Downloaden',
+			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Als OPML exporteren',
+		),
 		'filteractions' => array(
 			'_' => 'Filteracties',
-			'help' => 'Voer één zoekfilter per lijn in.',
+			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
@@ -99,8 +106,8 @@ return array(
 					'help' => 'Voorbeeld: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Aangepast datum-/tijdformaat',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum van bericht',
@@ -121,7 +128,47 @@ return array(
 				'relative' => 'XPath (relatief naar bericht) voor:',
 				'xpath' => 'XPath voor:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (puntnotatie)',
+				'feed_title' => array(
+					'_' => 'feed-titel',
+					'help' => 'Voorbeeld: <code>meta.titel</code> of een statische reeks tekst: <code>"Mijn aangepaste feed"</code>',
+				),
+				'help' => 'JSON-puntnotatie gebruikt punten tussen objecten en vierkante haakjes voor arrays (bv. <code>data.items[0].titel</code>)',
+				'item' => array(
+					'_' => 'nieuws-<strong>items</strong> vinden<br /><small>(het belangrijkst)</small>',
+					'help' => 'JSON-puntnotatiepad naar de array met de items, bv. <code>nieuwsItems</code>',
+				),
+				'item_author' => 'item-auteur',
+				'item_categories' => 'item-tags',
+				'item_content' => array(
+					'_' => 'item-inhoud',
+					'help' => 'De sleutel waaronder de inhoude te vinden is, bv. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item-miniatuur',
+					'help' => 'Voorbeeld: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Aangepast datum-/tijdformaat',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item-datum',
+					'help' => 'Het resultaat zal worden geparst door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item-titel',
+				'item_uid' => 'uniek item-id',
+				'item_uri' => array(
+					'_' => 'item-link (url)',
+					'help' => 'Voorbeeld: <code>permalink</code>',
+				),
+				'json' => 'puntnotatie voor:',
+				'relative' => 'puntnotatiepad (relatief aan item) voor:',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (standaard)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
@@ -132,18 +179,28 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
 		'max_http_redir_help' => 'Stel in op 0 of laat leeg om uit te schakelen, -1 voor ongelimiteerde redirects',
+		'method' => array(
+			'_' => 'HTTP-methode',
+		),
+		'method_help' => 'De POST-payload ondersteunt automatisch <code>application/x-www-form-urlencoded</code> en <code>application/json</code>',
+		'method_postparams' => 'Payload voor POST',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
-		'mute' => 'demp',
+		'mute' => array(
+			'_' => 'demp',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',
+			'category' => 'Toon in categorie',
+			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
-			'normal' => 'Toon in categorie',
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
-		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',
 			'show_rendered' => 'Inhoud tonen',
@@ -194,6 +251,7 @@ return array(
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'tag' => array(
+		'auto_label' => 'Dit label aan nieuwe artikelen toevoegen',
 		'name' => 'Naam',
 		'new_name' => 'Nieuwe naam',
 		'old_name' => 'Oude naam',

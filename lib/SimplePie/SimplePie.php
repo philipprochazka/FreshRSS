@@ -418,6 +418,12 @@ define('SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS', 16);
  */
 class SimplePie
 {
+
+	/**
+	 * @internal Default value of the HTTP Accept header when fetching/locating feeds
+	 */
+	public const DEFAULT_HTTP_ACCEPT_HEADER = 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1';
+
 	/**
 	 * @var array Raw data
 	 * @access private
@@ -1690,7 +1696,7 @@ class SimplePie
 				else
 				{
 					$headers = array(
-						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+						'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 					);
 					if (isset($this->data['headers']['last-modified']))
 					{
@@ -1722,11 +1728,17 @@ class SimplePie
 
 					$md5 = $this->cleanMd5($file->body);
 					if ($this->data['md5'] === $md5) {
+						// FreshRSS
 						if ($this->syslog_enabled)
 						{
 							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
 						}
-						$cache->touch();
+						$this->data['headers'] = $file->headers;
+						$this->data['mtime'] = time();
+						if (!$cache->save($this))
+						{
+							trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
+						}
 						return true;	//Content unchanged even though server did not send a 304
 					} else {
 						if ($this->syslog_enabled)
@@ -1754,7 +1766,7 @@ class SimplePie
 			else
 			{
 				$headers = array(
-					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+					'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 				);
 				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 			}
@@ -2264,8 +2276,9 @@ class SimplePie
 	/**
 	 * Get the base URL value from the feed
 	 *
-	 * Uses `<xml:base>` if available, otherwise uses the first link in the
-	 * feed, or failing that, the URL of the feed itself.
+	 * Uses `<xml:base>` if available,
+	 * otherwise uses the first 'self' link or the first 'alternate' link of the feed,
+	 * or failing that, the URL of the feed itself.
 	 *
 	 * @see get_link
 	 * @see subscribe_url
@@ -2275,16 +2288,17 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
-		{
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
 			return $element['xml_base'];
 		}
-		elseif ($this->get_link() !== null)
-		{
-			return $this->get_link();
+		if (($link = $this->get_link(0, 'self')) !== null) {
+			return $link;
+		}
+		if (($link = $this->get_link(0, 'alternate')) !== null) {
+			return $link;
 		}
 
-		return $this->subscribe_url();
+		return $this->subscribe_url() ?? '';
 	}
 
 	/**

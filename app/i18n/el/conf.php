@@ -17,7 +17,7 @@ return array(
 		'help' => 'More options are available in the individual feed’s settings',	// TODO
 		'keep_favourites' => 'Never delete favourites',	// TODO
 		'keep_labels' => 'Never delete labels',	// TODO
-		'keep_max' => 'Maximum number of articles to keep',	// TODO
+		'keep_max' => 'Maximum number of articles to keep per feed',	// TODO
 		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// TODO
 		'keep_period' => 'Maximum age of articles to keep',	// TODO
 		'keep_unreads' => 'Never delete unread articles',	// TODO
@@ -32,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode',	// TODO
+			'auto' => 'Auto',	// TODO
+			'help' => 'For compatible themes only',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// TODO
 			'display_authors' => 'Authors',	// TODO
@@ -48,7 +54,13 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// TODO
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
-		'theme' => 'Theme',	// TODO
+		'theme' => array(
+			'_' => 'Theme',	// TODO
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// TODO
@@ -57,7 +69,15 @@ return array(
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Display',	// TODO
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Content width',	// TODO
 			'large' => 'Wide',	// TODO
@@ -95,26 +115,42 @@ return array(
 	'query' => array(
 		'_' => 'User queries',	// TODO
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filter applied:',	// TODO
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
 			'order' => 'Sort by date',	// TODO
 			'search' => 'Expression',	// TODO
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'State',	// TODO
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'Display all articles',	// TODO
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Display “%s” category',	// TODO
 		'get_favorite' => 'Display favourite articles',	// TODO
 		'get_feed' => 'Display “%s” feed',	// TODO
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO
 		'number' => 'Query n°%d',	// TODO
 		'order_asc' => 'Display oldest articles first',	// TODO
 		'order_desc' => 'Display newest articles first',	// TODO
 		'search' => 'Search for “%s”',	// TODO
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Display all articles',	// TODO
 		'state_1' => 'Display read articles',	// TODO
 		'state_2' => 'Display unread articles',	// TODO
@@ -151,6 +187,11 @@ return array(
 				'with_authors' => 'In authors and date row',	// TODO
 			),
 			'feed_title' => 'Feed title',	// TODO
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tags',	// TODO
 				'both' => 'In header and footer',	// TODO
@@ -185,8 +226,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',	// TODO
 			'article_viewed' => 'when the article is viewed',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
-			'scroll' => 'while scrolling',	// TODO
+			'scroll' => 'while scrolling (except for important feeds)',	// TODO
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'upon receiving the article',	// TODO
 			'when' => 'Mark an article as read…',	// TODO
@@ -209,6 +251,9 @@ return array(
 			'newer_first' => 'Newest first',	// TODO
 			'older_first' => 'Oldest first',	// TODO
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Stick the article to the top when opened',	// TODO
 		'title' => 'Reading',	// TODO
 		'view' => array(
@@ -221,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// TODO
 		'add' => 'Add a sharing method',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
 		'email' => 'Email',	// TODO
